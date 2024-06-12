@@ -5,13 +5,20 @@ namespace FRCovadis.Entities
     public class Reservation
     {
         [Key]
-        public int id { get; set; }
+        public int Id { get; set; }
 
-        public DateTime start { get; set; }
-        public DateTime end { get; set; }
+        public DateTime Start { get; set; }
 
-        public int autoId { get; set; }
-        public int userId { get; set; }
+        public DateTime ?End { get; set; }
+
+        public int AutoId { get; set; }
+        public int UserId { get; set; }
+
+        public string ?StartAdress { get; set; }
+        public string ?EndAdress { get; set; }
+        public double ?KmAmount { get; set; }
+
+        public TimeOnly ?Time {  get; set; }
 
     }
 }

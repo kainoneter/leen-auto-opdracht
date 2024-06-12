@@ -7,32 +7,56 @@ using Microsoft.AspNetCore.Mvc;
 
 
 namespace FRCovadis.Controllers
-{   
+{
     [ApiController]
     [Route("api/[Controller]")]
     public class AutoController(AutoService _service) : ControllerBase
     {
-       /* [HttpGet]
-        public IActionResult GetUsers()
+        [HttpGet("autos")]
+        public IActionResult GetAutos()
         {
-            var users = _service.GetUsers();
-
-            return Ok(users);
+            var autos = _service.GetAutos();
+            return Ok(autos);
         }
 
-        [HttpPost]
-        public IActionResult CreateUser(CreateUserRequest user)
+        [HttpGet("autos/{carId}/reservations")]
+        public IActionResult GetReservationsByAuto(int carId)
         {
-            var response = _service.CreateUser(user);
+            var reservations = _service.ReservationsByCar(carId);
+            return Ok(reservations);
+        }
+
+        /*VERANDER DE TIJD!!!*/
+
+        [HttpPost("autos/create-reservation")]
+        public IActionResult CreateReservation(int userId, int carId)
+        {
+            var response = _service.ReserveAuto(userId, carId, DateTime.Now);
 
             return Ok(response);
         }
 
-        [Authorize(Roles = Roles.Administrator)]
-        [HttpGet("secret")]
-        public IActionResult Secret()
+        [HttpDelete]
+        public IActionResult DeleteAutos()
         {
-            return Ok("This is a secret message");
-        }*/
+            var response = _service.DeleteAutos();
+
+            return Ok(response);
+        }
+
+        /*  [HttpPost]
+          public IActionResult CreateUser(CreateUserRequest user)
+          {
+              var response = _service.CreateUser(user);
+
+              return Ok(response);
+          }
+
+          [Authorize(Roles = Roles.Administrator)]
+          [HttpGet("secret")]
+          public IActionResult Secret()
+          {
+              return Ok("This is a secret message");
+          }*/
     }
 }

@@ -9,40 +9,79 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FRCovadis.Services
 {
-    public class AutoService (UserContext _context)
-    {   
+    public class AutoService(UserContext _context)
+    {
 
-        public IActionResult ReserveAuto(int userId, int autoId, string email, DateTime start, DateTime end)
+        public IActionResult ReserveAuto(int userId, int autoId, DateTime start)
         {
-            var user = _context.Users.Select(x => x.Email ==  email).FirstOrDefault();
+            var user = _context.Users.Any(x => x.Id == userId);
 
-            if(user == false)
+            if (user == false)
             {
                 return new BadRequestObjectResult("user doesnt exist");
             }
             else
             {
-                _context.Reservations.Add(new Reservation
-                {
-                    start = start,
-                    end = end,
-                    autoId = autoId,
-                    userId = userId
 
-                });
+                var reservation = new Reservation
+                {
+                    Start = start,
+                    AutoId = autoId,
+                    UserId = userId
+
+                };
+
+                _context.Reservations.Add(reservation);
+                _context.SaveChanges();
+
+                var auto = _context.Autos.FirstOrDefault(x => x.Id == autoId);
+
+                if (auto != null)
+                {
+                    auto.IsReserved = true;
+                    auto.ReservationsById.Add(reservation.Id);
+                }
+                else
+                {
+                    return new BadRequestObjectResult("car doesnt exist");
+                }
+
+                return new OkObjectResult("Reservation successful.");
             }
 
-            return new OkObjectResult("Reservation successful.");
+
+
         }
 
-        public
-
-      /*  public UserResponse CreateAuto(CreateUserRequest userReq)
+        public IEnumerable<SmallReservationResponse> ReservationsByCar(int carId)
         {
+            return _context.Reservations.Select(x => new SmallReservationResponse
+            {
+                Id = x.Id,
+                UserId = x.UserId
+            }).ToList();
 
-          
-            
-        }*/
+            }
+
+        public IEnumerable<AutoResponse> GetAutos()
+        {
+            return _context.Autos.Select(x => new AutoResponse
+            {
+                Id = x.Id,
+                Name = x.Name
+            }).ToList();
+        }
+
+        public IActionResult DeleteAutos()
+        {
+            _context.Autos.RemoveRange(_context.Autos);
+
+            _context.SaveChanges();
+
+            return new OkObjectResult("deleted!");
+        }
+
+        
 
 
     }

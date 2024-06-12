@@ -3,6 +3,7 @@ using System;
 using FRCovadis.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FRCovadis.Migrations
 {
     [DbContext(typeof(UserContext))]
-    partial class UserContextModelSnapshot : ModelSnapshot
+    [Migration("20240612155832_UpdateAutos")]
+    partial class UpdateAutos
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.6");
@@ -31,6 +34,7 @@ namespace FRCovadis.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("ReservationsById")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
@@ -40,35 +44,23 @@ namespace FRCovadis.Migrations
 
             modelBuilder.Entity("FRCovadis.Entities.Reservation", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("AutoId")
+                    b.Property<int>("autoId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<DateTime?>("End")
+                    b.Property<DateTime>("end")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("EndAdress")
+                    b.Property<DateTime>("start")
                         .HasColumnType("TEXT");
 
-                    b.Property<double?>("KmAmount")
-                        .HasColumnType("REAL");
-
-                    b.Property<DateTime>("Start")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("StartAdress")
-                        .HasColumnType("TEXT");
-
-                    b.Property<TimeOnly?>("Time")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("UserId")
+                    b.Property<int>("userId")
                         .HasColumnType("INTEGER");
 
-                    b.HasKey("Id");
+                    b.HasKey("id");
 
                     b.ToTable("Reservations");
                 });

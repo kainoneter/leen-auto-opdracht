@@ -3,6 +3,7 @@ using System;
 using FRCovadis.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FRCovadis.Migrations
 {
     [DbContext(typeof(UserContext))]
-    partial class UserContextModelSnapshot : ModelSnapshot
+    [Migration("20240612162419_UpdateReservations2")]
+    partial class UpdateReservations2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.6");
@@ -47,22 +50,24 @@ namespace FRCovadis.Migrations
                     b.Property<int>("AutoId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<DateTime?>("End")
+                    b.Property<DateTime>("End")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("EndAdress")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<double?>("KmAmount")
+                    b.Property<double>("KmAmount")
                         .HasColumnType("REAL");
 
                     b.Property<DateTime>("Start")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("StartAdress")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<TimeOnly?>("Time")
+                    b.Property<TimeOnly>("Time")
                         .HasColumnType("TEXT");
 
                     b.Property<int>("UserId")

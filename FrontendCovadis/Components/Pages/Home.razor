@@ -1,7 +1,18 @@
 ﻿@page "/"
+@inherits Home
 
-<PageTitle>Home</PageTitle>
+<h3>Auto List</h3>
 
-<h1>Hello, world!</h1>
-
-Welcome to your new app.
+@if (Autos == null)
+{
+    <p>Loading...</p>
+}
+else
+{
+    <ul>
+        @foreach (var auto in Autos)
+        {
+            <li>@auto.Name</li>
+        }
+    </ul>
+}

@@ -26,12 +26,19 @@ namespace FRCovadis.Controllers
             return Ok(reservations);
         }
 
+        [HttpGet("autos/reservations")]
+        public IActionResult GetAllReservations()
+        {
+            var reservations = _service.GetAllReservations();
+            return Ok(reservations);
+        }
+
         /*VERANDER DE TIJD!!!*/
 
         [HttpPost("autos/create-reservation")]
-        public IActionResult CreateReservation(int userId, int carId)
+        public IActionResult CreateReservation(int userId, int carId, DateTime start)
         {
-            var response = _service.ReserveAuto(userId, carId, DateTime.Now);
+            var response = _service.ReserveAuto(userId, carId, start);
 
             return Ok(response);
         }

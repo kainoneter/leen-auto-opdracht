@@ -53,15 +53,30 @@ namespace FRCovadis.Services
 
         }
 
-        public IEnumerable<SmallReservationResponse> ReservationsByCar(int carId)
+        public IEnumerable<ReservationResponse> ReservationsByCar(int carId)
         {
-            return _context.Reservations.Select(x => new SmallReservationResponse
+            return _context.Reservations
+                .Where(r => r.AutoId == carId) // Filter by carId
+                .Select(r => new ReservationResponse // Project to SmallReservationResponse
+                {
+                    Id = r.Id,
+                    UserId = r.UserId,
+                    AutoId = r.AutoId,
+                    Start = r.Start
+                })
+                .ToList();
+        }
+
+
+        public IEnumerable<ReservationResponse> GetAllReservations()
+        {
+            return _context.Reservations.Select(x => new ReservationResponse
             {
                 Id = x.Id,
+                AutoId = x.AutoId,
                 UserId = x.UserId
-            }).ToList();
-
-            }
+            });
+        }
 
         public IEnumerable<AutoResponse> GetAutos()
         {

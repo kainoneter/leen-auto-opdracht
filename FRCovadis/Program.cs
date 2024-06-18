@@ -25,15 +25,15 @@ public static class Program
         services.AddEndpointsApiExplorer();
         services.AddSwaggerGen(options =>
         {
-            options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
+            /*options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
             {
                 In = ParameterLocation.Header,
                 Description = "Please insert JWT with Bearer into field",
                 Name = "Authorization",
                 Type = SecuritySchemeType.ApiKey
-            });
+            });*/
 
-            options.AddSecurityRequirement(new OpenApiSecurityRequirement()
+            /*options.AddSecurityRequirement(new OpenApiSecurityRequirement()
             {
                 {
                     new OpenApiSecurityScheme
@@ -46,15 +46,15 @@ public static class Program
                     },
                     Array.Empty<string>()
                 }
-            });
+            });*/
         });
 
         // Add services to the container.
         services.AddTransient<AutoService>();
         services.AddTransient<UserService>();
-        services.AddTransient<AuthService>();
+/*        services.AddTransient<AuthService>();
         services.AddTransient<TokenService>();
-
+*/
         // Add database context
         services.AddDbContext<UserContext>(options =>
         {
@@ -62,7 +62,7 @@ public static class Program
         });
 
         // Add authentication for JWT
-        builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+       /* builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer(options =>
             {
                 options.TokenValidationParameters = new TokenValidationParameters
@@ -83,7 +83,7 @@ public static class Program
             .SetFallbackPolicy(new AuthorizationPolicyBuilder()
             .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme)
             .RequireAuthenticatedUser()
-            .Build());
+            .Build());*/
 
         var app = builder.Build();
 
@@ -96,9 +96,9 @@ public static class Program
 
         app.UseHttpsRedirection();
 
-        app.UseAuthentication();
+/*        app.UseAuthentication();
 
-        app.UseAuthorization();
+        app.UseAuthorization();*/
 
         app.MapControllers();
 

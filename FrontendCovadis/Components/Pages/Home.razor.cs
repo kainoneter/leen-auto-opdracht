@@ -14,25 +14,25 @@ namespace FrontendCovadis.Components.Pages
         [Inject]
         AuthService AuthService { get; set; }
 
-        /*   [Inject]
-           public HttpClient HttpClient { get; set; }
+        [Inject]
+        public HttpClient HttpClient { get; set; }
 
 
-           public List<AutoResponse> Autos { get; set; }
+        public List<AutoResponse> Autos { get; set; }
 
 
 
 
-           public async Task<AutoResponse> GetAutos(string token)
-           {
-               // Set the authorization header with the bearer token
-               HttpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+        public async Task<AutoResponse> GetAutos(string token)
+        {
+            // Set the authorization header with the bearer token
+            HttpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
-               // Make the request and deserialize the JSON response
-               Autos = await HttpClient.GetFromJsonAsync<List<AutoResponse>>("https://localhost:7165/api/Auto/autos");
+            // Make the request and deserialize the JSON response
+            Autos = await HttpClient.GetFromJsonAsync<List<AutoResponse>>("https://localhost:7165/api/Auto/autos");
 
-               return Autos
-           }*/
+            return Autos
+           }
 
         private async Task Login()
         {
@@ -51,13 +51,13 @@ namespace FrontendCovadis.Components.Pages
                 Console.WriteLine("Login failed");
             }
         }
-
+/*
         protected override async Task OnInitializedAsync()
         {
-            string token = AuthService.LogIn(new LoginRequest { })
+            string token = AuthService.LogIn(new LoginRequest { });
 
 
 
-        }
+        }*/
     }
 }

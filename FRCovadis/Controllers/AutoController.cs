@@ -33,14 +33,25 @@ namespace FRCovadis.Controllers
             return Ok(reservations);
         }
 
-        /*VERANDER DE TIJD!!!*/
 
         [HttpPost("autos/create-reservation")]
-        public IActionResult CreateReservation(int userId, int carId, DateTime start)
+        public IActionResult CreateReservation(int userId, int carId, DateTime start, DateTime end)
         {
-            var response = _service.ReserveAuto(userId, carId, start);
+            if (start !< end)
+            {
+                return BadRequest("date not valid");
+            }
+            var response = _service.ReserveAuto(userId, carId, start, end);
 
             return Ok(response);
+        }
+
+        [HttpDelete("autos/delete-reservation")]
+        public IActionResult DeleteReservation(int reservationId)
+        {
+           _service.DeleteReservation(reservationId);
+
+            return Ok();
         }
 
         [HttpDelete]

@@ -28,6 +28,19 @@ namespace FRCovadis.Controllers
             return Ok(response);
         }
 
+        [HttpPut("{id}")]
+        public IActionResult UpdateUser(int id, UpdateUserRequest user)
+        {
+            var updatedUser = _service.UpdateUser(id, user);
+
+            if (updatedUser == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(updatedUser);
+        }
+
         [Authorize(Roles = Roles.Administrator)]
         [HttpGet("secret")]
         public IActionResult Secret()

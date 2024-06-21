@@ -12,7 +12,7 @@ namespace FRCovadis.Services
     public class AutoService(UserContext _context)
     {
 
-        public IActionResult ReserveAuto(int userId, int autoId, DateTime start)
+        public IActionResult ReserveAuto(int userId, int autoId, DateTime start, DateTime end)
         {
             var user = _context.Users.Any(x => x.Id == userId);
 
@@ -26,6 +26,7 @@ namespace FRCovadis.Services
                 var reservation = new Reservation
                 {
                     Start = start,
+                    End = end,
                     AutoId = autoId,
                     UserId = userId
 
@@ -53,11 +54,27 @@ namespace FRCovadis.Services
 
         }
 
+        public IActionResult DeleteReservation(int reservationId)
+        {
+            var reservation = _context.Reservations.FirstOrDefault(x => x.Id == reservationId);
+            if (reservation != null)
+            {
+                _context.Reservations.Remove(reservation);
+                _context.SaveChanges();
+            }
+            else
+            {
+                return new BadRequestObjectResult("car not found");
+            }
+
+            return new OkObjectResult("reservation deleted");
+        }
+
         public IEnumerable<ReservationResponse> ReservationsByCar(int carId)
         {
             return _context.Reservations
-                .Where(r => r.AutoId == carId) // Filter by carId
-                .Select(r => new ReservationResponse // Project to SmallReservationResponse
+                .Where(r => r.AutoId == carId) 
+                .Select(r => new ReservationResponse 
                 {
                     Id = r.Id,
                     UserId = r.UserId,
@@ -74,7 +91,9 @@ namespace FRCovadis.Services
             {
                 Id = x.Id,
                 AutoId = x.AutoId,
-                UserId = x.UserId
+                UserId = x.UserId,
+                Start = x.Start,
+      /*          End = x.End*/
             });
         }
 

@@ -1,63 +1,31 @@
-﻿using FRCovadis.Responses;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Net.Http.Json;
-using System.Threading.Tasks;
+namespace GraafschapCollege.BlazorApp.Pages;
+
+using FRCovadis.Responses;
+using FRCovadis.Shared.Clients;
+
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
-using FRCovadis.Requests;
-using FrontendCovadis.Services;
 
-namespace FrontendCovadis.Components.Pages
+[Authorize]
+[Route("/")]
+public partial class Home
 {
-    public partial class Home
+    private IEnumerable<ReservationResponse> Reservations { get; set; }
+
+    [Inject]
+    private ReservationHttpClient ReservationHttpClient { get; set; }
+
+    [Inject]
+    private NavigationManager NavigationManager { get; set; }
+
+    protected async Task OnInitializedAsync()
     {
-        [Inject]
-        AuthService AuthService { get; set; }
+        Reservations = await ReservationHttpClient.GetReservationsAsync();
+    }
 
-        [Inject]
-        public HttpClient HttpClient { get; set; }
+    private void GotoReservation()
+    {
 
-
-        public List<AutoResponse> Autos { get; set; }
-
-
-
-
-        public async Task<AutoResponse> GetAutos(string token)
-        {
-            // Set the authorization header with the bearer token
-            HttpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-
-            // Make the request and deserialize the JSON response
-            Autos = await HttpClient.GetFromJsonAsync<List<AutoResponse>>("https://localhost:7165/api/Auto/autos");
-
-            return Autos
-           }
-
-        private async Task Login()
-        {
-            LoginRequest loginRequest = new LoginRequest { /* Populate login request if needed */ };
-
-            string token = await AuthService.LogIn(loginRequest);
-
-            if (!string.IsNullOrEmpty(token))
-            {
-                // Token obtained successfully, proceed with your application logic
-                Console.WriteLine("Token obtained: " + token);
-            }
-            else
-            {
-                // Handle failed login scenario (e.g., show error message)
-                Console.WriteLine("Login failed");
-            }
-        }
-/*
-        protected override async Task OnInitializedAsync()
-        {
-            string token = AuthService.LogIn(new LoginRequest { });
-
-
-
-        }*/
+        NavigationManager.NavigateTo("/reservation/create");
     }
 }

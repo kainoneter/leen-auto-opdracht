@@ -1,4 +1,4 @@
-namespace FRCovadis.BlazorApp.Pages.Reservation;
+namespace FrontendCovadis.Components.Pages;
 
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;

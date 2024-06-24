@@ -31,10 +31,14 @@ else
             {
                 <tr>
                     <td>@reservation.Id</td>
-                    <td>@reservation.Vehicle.Brand @reservation.Vehicle.Model</td>
-                    <td>@reservation.From.ToString("dd-MM-yyyy HH:mm")</td>
-                    <td>@reservation.Until.ToString("dd-MM-yyyy HH:mm")</td>
-                    <td>@reservation.User.Name</td>
+                    @* Hier moet je nog wat mee: *@
+                    @* <td>@reservation.Vehicle.Brand @reservation.Vehicle.Model</td> *@
+
+                    @* Deze heb ik omgezet naar jouw variabelen van ReservationResponse *@
+                    <td>@reservation.Start.ToString("dd-MM-yyyy HH:mm")</td>
+                    <td>@reservation.End.ToString("dd-MM-yyyy HH:mm")</td>
+                    @* Hier moet je nog wat mee: *@
+                    @* <td>@reservation.UserName</td> *@
                 </tr>
             }
         </tbody>

@@ -1,4 +1,4 @@
-namespace GraafschapCollege.BlazorApp.Pages;
+namespace FrontendCovadis.Components.Pages;
 
 using FRCovadis.Responses;
 using FRCovadis.Shared.Clients;
@@ -6,7 +6,7 @@ using FRCovadis.Shared.Clients;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
 
-[Authorize]
+//[Authorize]
 [Route("/")]
 public partial class Home
 {

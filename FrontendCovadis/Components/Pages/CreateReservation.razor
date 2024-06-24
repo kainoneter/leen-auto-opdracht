@@ -25,7 +25,8 @@ else
 
                     @foreach (var vehicle in Vehicles)
                     {
-                        <option value="@vehicle.Id">@vehicle.Brand @vehicle.Model</option>
+                        @* Dit moet nog anders... *@
+                        <option value="@vehicle.Id">@vehicle.Name Hier zou model moeten staan:@vehicle.Name </option>
                     }
                 </InputSelect>
                 <label for="vehicle">Vehicle</label>

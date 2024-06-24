@@ -11,6 +11,7 @@ using Microsoft.Extensions.Options;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Mime;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -22,7 +23,7 @@ public class ReservationHttpClient
     public ReservationHttpClient(IHttpClientFactory httpClientFactory, IOptions<ApiOptions> options)
     {
         client = httpClientFactory.CreateClient(nameof(ReservationHttpClient));
-        client.BaseAddress = new Uri($"{options.Value.BaseUrl}/reservations");
+        client.BaseAddress = new Uri($"https://localhost:7165/api/reservations");
     }
 
     public async Task<ReservationResponse> CreateReservationAsync(CreateReservationRequest request)

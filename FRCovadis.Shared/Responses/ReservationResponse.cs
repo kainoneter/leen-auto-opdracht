@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FRCovadis.Shared.Responses;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace FRCovadis.Responses
 {
-    public class ReservationResponse
+    public class ReservationResponse : BaseResponse
     {
         public int Id {  get; set; }
         public int AutoId { get; set; }

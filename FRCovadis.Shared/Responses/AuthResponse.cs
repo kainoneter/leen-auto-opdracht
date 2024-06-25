@@ -1,6 +1,8 @@
-﻿namespace FRCovadis.Responses;
+﻿using FRCovadis.Shared.Responses;
 
-public class AuthResponse
+namespace FRCovadis.Responses;
+
+public class AuthResponse : BaseResponse
 {
     public int Id { get; set; }
     public string Name { get; set; }

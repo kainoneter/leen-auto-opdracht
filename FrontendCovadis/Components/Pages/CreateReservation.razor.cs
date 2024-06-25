@@ -1,14 +1,13 @@
 namespace FrontendCovadis.Components.Pages;
 
-/*using Microsoft.AspNetCore.Authorization;*/
+using Microsoft.AspNetCore.Routing;
 using Microsoft.AspNetCore.Components;
 using FRCovadis.Requests;
 using FRCovadis.Responses;
-using Microsoft.AspNetCore.Mvc;
 using FRCovadis.Shared.Clients;
 
-/*[Authorize]*//*
-[Route("/reservation/create")]*/
+/*[Authorize]*/
+[Route("/reservation/create")]
 public partial class CreateReservation
 {
     private bool isLoading = true;
@@ -38,18 +37,16 @@ public partial class CreateReservation
     }
 
     private async Task CreateReservationAsync()
-    {
+        {
         var response = await ReservationHttpClient.CreateReservationAsync(Request);
 
-        if(response == null)
+        if (response.Errors.Count > 0)
         {
-            new BadRequestObjectResult("no response");
+            Errors = response.Errors;
         }
         else
-        {       
+        {
             NavigationManager.NavigateTo("/");
         }
-        
-        
     }
 }

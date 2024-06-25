@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\FRCovadis.Shared\FRCovadis.Shared.csproj" />
+    <ProjectReference Include="..\FRCovadis\FRCovadis.csproj" />
   </ItemGroup>
 
 </Project>

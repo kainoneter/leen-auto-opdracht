@@ -12,9 +12,14 @@ namespace FRCovadis.Services
     public class AutoService(UserContext _context)
     {
 
-        public IActionResult ReserveAuto(int userId, int autoId, DateTime start, DateTime end)
+        public IActionResult ReserveAuto(string userName, string autoName, DateTime start, DateTime end)
         {
-            var user = _context.Users.Any(x => x.Id == userId);
+            var user = _context.Users.Any(x => x.Name == userName);
+            var userId = _context.Users
+                                .Where(x => x.Name == userName)
+                                .Select(x => x.Id)
+                                .FirstOrDefault();
+            var autoId = _context.Autos.Where(x => x.Name == autoName).Select(x => x.Id).FirstOrDefault();
 
             if (user == false)
             {
@@ -28,19 +33,23 @@ namespace FRCovadis.Services
                     Start = start,
                     End = end,
                     AutoId = autoId,
-                    UserId = userId
+                    AutoName = autoName,
+                    UserName = userName,
+                    UserId = userId,
 
                 };
 
                 _context.Reservations.Add(reservation);
                 _context.SaveChanges();
 
-                var auto = _context.Autos.FirstOrDefault(x => x.Id == autoId);
+                var auto = _context.Autos.FirstOrDefault(x => x.Name == autoName);
 
                 if (auto != null)
                 {
                     auto.IsReserved = true;
                     auto.ReservationsById.Add(reservation.Id);
+
+                    _context.SaveChanges();
                 }
                 else
                 {
@@ -91,9 +100,11 @@ namespace FRCovadis.Services
             {
                 Id = x.Id,
                 AutoId = x.AutoId,
+                AutoName = x.AutoName,
                 UserId = x.UserId,
+                UserName = x.UserName,
                 Start = x.Start,
-      /*          End = x.End*/
+                End = x.End
             });
         }
 

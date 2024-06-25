@@ -23,7 +23,7 @@ public class ReservationHttpClient
     public ReservationHttpClient(IHttpClientFactory httpClientFactory, IOptions<ApiOptions> options)
     {
         client = httpClientFactory.CreateClient(nameof(ReservationHttpClient));
-        client.BaseAddress = new Uri($"https://localhost:7165/api/reservations");
+        client.BaseAddress = new Uri($"https://localhost:7165/api/Auto/autos");
     }
 
     public async Task<ReservationResponse> CreateReservationAsync(CreateReservationRequest request)
@@ -39,7 +39,7 @@ public class ReservationHttpClient
 
     public async Task<IEnumerable<ReservationResponse>> GetReservationsAsync()
     {
-        var response = await client.GetAsync(string.Empty);
+        var response = await client.GetAsync(client.BaseAddress + "/reservations");
 
         if (!response.IsSuccessStatusCode)
         {

@@ -10,6 +10,9 @@ namespace FRCovadis.Responses
     {
         public int Id {  get; set; }
         public int AutoId { get; set; }
+
+        public string AutoName { get; set; }
+        public string UserName { get; set; }
         public int UserId { get; set; }
 
         public DateTime Start {  get; set; }

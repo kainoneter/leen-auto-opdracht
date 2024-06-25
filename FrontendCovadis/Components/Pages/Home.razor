@@ -3,12 +3,10 @@
 <div class="d-flex justify-content-between">
     <PageHeader Size="PageHeader.Sizes.H2">Reservations</PageHeader>
 
-    <button @onclick="GotoReservation" class="btn btn-primary ml-auto">
+    <button href="CreateReservation" class="btn btn-primary ml-auto">
         Add reservation
     </button>
 </div>
-
-<p>All reservations</p>
 
 @if (Reservations == null)
 {
@@ -31,16 +29,13 @@ else
             {
                 <tr>
                     <td>@reservation.Id</td>
-                    @* Hier moet je nog wat mee: *@
-                    @* <td>@reservation.Vehicle.Brand @reservation.Vehicle.Model</td> *@
-
-                    @* Deze heb ik omgezet naar jouw variabelen van ReservationResponse *@
+                    <td>@reservation.AutoName</td>
                     <td>@reservation.Start.ToString("dd-MM-yyyy HH:mm")</td>
                     <td>@reservation.End.ToString("dd-MM-yyyy HH:mm")</td>
-                    @* Hier moet je nog wat mee: *@
-                    @* <td>@reservation.UserName</td> *@
+                    <td>@reservation.UserName</td>
                 </tr>
             }
         </tbody>
     </table>
+
 }

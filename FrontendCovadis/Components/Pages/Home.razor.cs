@@ -18,7 +18,7 @@ public partial class Home
     [Inject]
     private NavigationManager NavigationManager { get; set; }
 
-    protected async Task OnInitializedAsync()
+    protected override async Task OnInitializedAsync()
     {
         Reservations = await ReservationHttpClient.GetReservationsAsync();
     }

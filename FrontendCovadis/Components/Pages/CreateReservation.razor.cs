@@ -1,15 +1,14 @@
 namespace FrontendCovadis.Components.Pages;
 
-using Microsoft.AspNetCore.Authorization;
+/*using Microsoft.AspNetCore.Authorization;*/
 using Microsoft.AspNetCore.Components;
 using FRCovadis.Requests;
 using FRCovadis.Responses;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Http.HttpResults;
 using FRCovadis.Shared.Clients;
 
-[Authorize]
-[Microsoft.AspNetCore.Components.Route("/reservation/create")]
+/*[Authorize]*//*
+[Route("/reservation/create")]*/
 public partial class CreateReservation
 {
     private bool isLoading = true;

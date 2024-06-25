@@ -35,13 +35,13 @@ namespace FRCovadis.Controllers
 
 
         [HttpPost("autos/create-reservation")]
-        public IActionResult CreateReservation(int userId, int carId, DateTime start, DateTime end)
+        public IActionResult CreateReservation(string userName, string carName, DateTime start, DateTime end)
         {
             if (start >= end)
             {
                 return BadRequest("The start date must be before the end date.");
             }
-            var response = _service.ReserveAuto(userId, carId, start, end);
+            var response = _service.ReserveAuto(userName, carName, start, end);
 
             return Ok(response);
         }
